@@ -1,0 +1,3 @@
+com/visualpathit/account/validator/UserValidator.class
+com/visualpathit/account/utils/MemcachedUtils.class
+com/visualpathit/account/utils/RabbitMqUtil.class

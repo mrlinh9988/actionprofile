@@ -7,6 +7,12 @@ on:
     branches: 
       - main
       - feature
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
+
+permissions:
+  contents: read
 
 jobs:
   Build:
@@ -19,6 +25,16 @@ jobs:
 
       - name: Maven build
         run: mvn install
+
+      - name: Upload Build Artifact (WAR)
+        uses: actions/upload-artifact@v4
+        with:
+          name: vprofile-app
+          path: target/*.war
+
+      - name: Notify if build fails 
+        if: failure() # predefine function of Github
+        run: echo "Build failed! Please check the logs for details."
   
   Testing:
     runs-on: ubuntu-latest  

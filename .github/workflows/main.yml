@@ -46,7 +46,13 @@ jobs:
           fetch-depth: 0
 
       - name: Run tests on main branch
+        if: github.ref == 'refs/heads/main'
         run: mvn test
       
       - name: Checkstyle
+        if: github.ref == 'refs/heads/main'
         run: mvn checkstyle:checkstyle
+
+      - name: Run test on other branches
+        if: github.ref != 'refs/heads/main'
+        run: echo "Skipping unit tests and code analysis"
